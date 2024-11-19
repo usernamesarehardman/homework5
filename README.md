@@ -2,9 +2,9 @@
 
 ## Overview
 
-This repository contains the code and resources for Homework 5. The primary language used is Python. This project consists of a keylogger client that captures keystrokes and sends them to a server. The server receives and displays the keystrokes.
+This project consists of a keylogger client that captures keystrokes and sends them to a server. The server receives and displays the keystrokes.
 
-## Contents
+## Files
 
 - `README.md`: Project documentation
 - `client.py`: The client script that captures keystrokes and sends them to the server.
@@ -13,7 +13,7 @@ This repository contains the code and resources for Homework 5. The primary lang
 ## Requirements
 
 - Python 3.x
-- `pynput` library
+- `keyboard` library
 
 ## Installation
 

